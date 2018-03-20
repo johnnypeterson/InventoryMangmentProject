@@ -1,14 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="view.AddPartController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="500.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AddPartController">
+   <children>
+      <SplitPane dividerPositions="0.29797979797979796" layoutX="-91.0" layoutY="-39.0" prefHeight="419.0" prefWidth="906.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="-9.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="228.0">
+               <children>
+                  <Label fx:id="productLabel" layoutX="24.0" layoutY="25.0" prefHeight="22.0" prefWidth="127.0" text="Add Product" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="36.0" layoutY="90.0" text="ID" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="100.0" />
+                  <Label layoutX="36.0" layoutY="152.0" text="Name" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="150.0" />
+                  <Label layoutX="36.0" layoutY="201.0" text="Inv" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="200.0" />
+                  <Label layoutX="36.0" layoutY="261.0" text="Price" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="250.0" />
+                  <Label layoutX="36.0" layoutY="339.0" text="Min" AnchorPane.leftAnchor="36.0" AnchorPane.topAnchor="300.0" />
+                  <Label layoutX="109.0" layoutY="300.0" text="Max" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="300.0" />
+                  <TextField fx:id="productNameField" layoutX="94.0" layoutY="145.0" prefHeight="22.0" prefWidth="117.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="150.0" />
+                  <TextField fx:id="productInvField" layoutX="100.0" layoutY="195.0" prefHeight="22.0" prefWidth="117.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="200.0" />
+                  <TextField fx:id="productPriceField" layoutX="100.0" layoutY="239.0" prefHeight="27.0" prefWidth="117.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="250.0" />
+                  <TextField layoutX="152.0" layoutY="295.0" prefHeight="27.0" prefWidth="42.0" AnchorPane.topAnchor="295.0" />
+                  <TextField layoutX="61.0" layoutY="295.0" prefHeight="27.0" prefWidth="42.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="295.0" />
+                  <Text fx:id="productID" layoutX="104.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Auto" wrappingWidth="58.000022411346436" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="389.0" prefWidth="355.0">
+               <children>
+                  <TableView fx:id="partSearchTable" layoutX="77.0" layoutY="65.0" prefHeight="147.0" prefWidth="411.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                    <columns>
+                      <TableColumn fx:id="partIdSearch" prefWidth="71.0" text="Part Id" />
+                      <TableColumn fx:id="partNameSearch" minWidth="7.0" prefWidth="180.0" text="Part Name" />
+                        <TableColumn fx:id="invSearch" minWidth="7.0" prefWidth="148.0" text="Inventory" />
+                        <TableColumn fx:id="priceSearch" minWidth="7.0" prefWidth="133.0" text="Price per Unit" />
+                    </columns>
+                  </TableView>
+                  <TableView fx:id="partTable" layoutX="20.0" layoutY="269.0" prefHeight="147.0" prefWidth="411.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                     <columns>
+                        <TableColumn fx:id="partAdd" prefWidth="74.0" text="Part Id" />
+                        <TableColumn fx:id="partNameAdd" prefWidth="166.0" text="Part Name" />
+                        <TableColumn fx:id="invAdd" prefWidth="153.0" text="Inventory" />
+                        <TableColumn fx:id="priceAdd" prefWidth="138.0" text="Price per Unit" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="productSearchButton" layoutX="113.0" layoutY="22.0" mnemonicParsing="false" text="Search" />
+                  <Button fx:id="productAddButton" layoutX="463.0" layoutY="225.0" mnemonicParsing="false" text="Add" />
+                  <Button fx:id="productDeleteButton" layoutX="471.0" layoutY="424.0" mnemonicParsing="false" text="Delete" AnchorPane.bottomAnchor="53.0" AnchorPane.topAnchor="424.0" />
+                  <Button fx:id="productSaveButton" layoutX="400.0" layoutY="463.0" mnemonicParsing="false" text="Save" />
+                  <Button fx:id="productCancelButton" layoutX="471.0" layoutY="463.0" mnemonicParsing="false" text="Cancel" />
+                  <TextField fx:id="productSearchField" layoutX="203.0" layoutY="22.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
 </AnchorPane>
