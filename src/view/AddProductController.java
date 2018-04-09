@@ -80,6 +80,12 @@ public class AddProductController {
     @FXML
     private Button productAddButton;
 
+    public AddProductController() {}
+
+    @FXML
+    private void initialize () {
+
+    }
 
 
 }

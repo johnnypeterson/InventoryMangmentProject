@@ -1,10 +1,10 @@
 package view;
 
+import inventory.Model.Inventory;
+import inventory.Model.Parts;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 
 /**
@@ -42,7 +42,41 @@ public class AddPartController {
     @FXML
     private Button cancelButton;
 
+    public AddPartController() {}
 
+    @FXML
+    private void initialize() {
+
+        ToggleGroup radioButton = new ToggleGroup();
+        inHouseButton.setToggleGroup(radioButton);
+        outsourcedButton.setToggleGroup(radioButton);
+
+
+
+    }
+
+
+    private Stage partStage;
+    private Inventory inventory;
+    private Parts part;
+    private boolean newPart;
+
+    public void setScreenTitle(Stage stage, Inventory hasInventory, Parts hasPart) {
+        partStage = stage;
+        inventory = hasInventory;
+        part = hasPart;
+
+        if (hasPart == null) {
+            newPart = true;
+            partTitle.setText("Add Part");
+
+        } else {
+            newPart = false;
+            partTitle.setText("Modify Part");
+
+        }
+
+    }
 
 
 

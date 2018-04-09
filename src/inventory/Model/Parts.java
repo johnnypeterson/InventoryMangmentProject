@@ -20,13 +20,13 @@ public abstract class Parts {
     private SimpleIntegerProperty partMin;
     private SimpleIntegerProperty partMax;
 
-    public Parts(SimpleIntegerProperty partID, SimpleStringProperty partName, SimpleDoubleProperty partPrice, SimpleIntegerProperty partsInStock, SimpleIntegerProperty partMin, SimpleIntegerProperty partMax) {
-        this.partID = new SimpleIntegerProperty(incrementId.incrementAndGet());;
-        this.partName = partName;
-        this.partPrice = partPrice;
-        this.partsInStock = partsInStock;
-        this.partMin = partMin;
-        this.partMax = partMax;
+    public Parts(String name, double partPrice, int partInstock) {
+        this.partID = new SimpleIntegerProperty(incrementId.incrementAndGet());
+        this.partName = new SimpleStringProperty(name);
+        this.partPrice = new SimpleDoubleProperty(partPrice);
+        this.partsInStock = new SimpleIntegerProperty(partInstock);
+        this.partMin = new SimpleIntegerProperty(0);
+        this.partMax = new SimpleIntegerProperty(0);
     }
 
     public static AtomicInteger getIncrementId() {
@@ -108,4 +108,14 @@ public abstract class Parts {
     public void setPartMax(int partMax) {
         this.partMax.set(partMax);
     }
+
+
+    public void copyPartId(Parts oldPart) {
+        this.partID.set(oldPart.getPartID());
+    }
+
+
+
 }
+
+

@@ -67,7 +67,7 @@
         <TextField fx:id="searchProductTextField" layoutX="600.0" layoutY="62.0" />
       <ButtonBar layoutX="8.0" layoutY="378.0" prefHeight="40.0" prefWidth="425.0">
         <buttons>
-              <Button fx:id="partAddButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" text="Add" />
+              <Button fx:id="partAddButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" text="Add" onAction="#addPart" />
               <Button fx:id="partModifyButton" mnemonicParsing="false" text="Modify" />
               <Button fx:id="partDeleteButton" mnemonicParsing="false" text="Delete" />
         </buttons>
@@ -81,7 +81,7 @@
       </ButtonBar>
       <ButtonBar layoutX="662.0" layoutY="421.0" prefHeight="40.0" prefWidth="200.0">
          <buttons>
-              <Button fx:id="exitButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="71.0" text="Exit" />
+              <Button fx:id="exitButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="71.0" text="Exit" onAction="#handleExit" />
          </buttons>
       </ButtonBar>
     </children>
