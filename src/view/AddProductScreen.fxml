@@ -8,9 +8,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="500.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AddPartController">
+<AnchorPane prefHeight="500.0" prefWidth="815.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.AddProductController">
    <children>
       <SplitPane dividerPositions="0.29797979797979796" layoutX="-91.0" layoutY="-39.0" prefHeight="419.0" prefWidth="906.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="-9.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -32,7 +31,7 @@
                   <TextField fx:id="productPriceField" layoutX="100.0" layoutY="239.0" prefHeight="27.0" prefWidth="117.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="250.0" />
                   <TextField layoutX="152.0" layoutY="295.0" prefHeight="27.0" prefWidth="42.0" AnchorPane.topAnchor="295.0" />
                   <TextField layoutX="61.0" layoutY="295.0" prefHeight="27.0" prefWidth="42.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="295.0" />
-                  <Text fx:id="productID" layoutX="104.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Auto" wrappingWidth="58.000022411346436" />
+                  <TextField fx:id="productId" layoutX="105.0" layoutY="95.0" prefHeight="27.0" prefWidth="108.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="389.0" prefWidth="355.0">

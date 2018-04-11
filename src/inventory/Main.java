@@ -5,17 +5,15 @@ import inventory.Model.Inventory;
 import inventory.Model.Parts;
 import inventory.Model.Product;
 import javafx.application.Application;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import view.AddPartController;
+import view.AddProductController;
 import view.MainScreenController;
 
 import java.io.IOException;
@@ -34,7 +32,9 @@ public class Main extends Application {
     public Main () {
         inventory = new Inventory();
 
-        partsData.add(new InHouse("Part", 10, 1));
+       inventory.addPart(new InHouse("test", 1.34, 23,213, 241, 3));
+
+
 
 
 
@@ -99,7 +99,7 @@ public class Main extends Application {
         }
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("/src/view/AddPartScreen.fxml"));
+            loader.setLocation(Main.class.getResource("/view/AddPartScreen.fxml"));
             AnchorPane partScreen = (AnchorPane) loader.load();
 
             Stage partScreenStage = new Stage();
@@ -122,17 +122,35 @@ public class Main extends Application {
 
     }
 
-//    public void showProductScreen(Product product) {
-//        String title;
-//        if (product == null) {
-//            title = "Add Product";
-//        } else {
-//            title = "Modify Product";
-//        }
-//        try {
-//
-//        }
-//    }
+    public void showProductScreen(Product product) {
+        String title;
+        if (product == null) {
+            title = "Add Product";
+        } else {
+            title = "Modify Product";
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("/view/AddProductScreen.fxml"));
+            AnchorPane productScreen = (AnchorPane) loader.load();
+
+            Stage productScreenStage = new Stage();
+            productScreenStage.setTitle(title);
+            productScreenStage.initModality(Modality.WINDOW_MODAL);
+            productScreenStage.initOwner(primaryStage);
+
+            Scene scene = new Scene(productScreen);
+            productScreenStage.setScene(scene);
+
+            AddProductController controller = loader.getController();
+            controller.setScreenTitle(productScreenStage, inventory, product);
+
+            productScreenStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Stage getPrimaryStage() {
         return primaryStage;

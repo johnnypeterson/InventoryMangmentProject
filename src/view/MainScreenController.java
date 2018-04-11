@@ -8,6 +8,7 @@ import inventory.Model.Parts;
 import inventory.Model.Product;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -106,14 +107,21 @@ public class MainScreenController {
     public void setMainScreen(Main mainApp) {
         app = mainApp;
         inventory = mainApp.getInventory();
-//        partsTableView.setItems(inventory.getAllParts());
-//        productTableView.setItems(inventory.getAllProducts());
+
+        partsTableView.setItems(inventory.getPartList());
+        productTableView.setItems(inventory.getProdcutList());
+
     }
 
     @FXML
     private void addPart() {
         app.showPartScreen(null);
 
+    }
+
+    @FXML
+    private void addProductButton() {
+        app.showProductScreen(null);
     }
 
 

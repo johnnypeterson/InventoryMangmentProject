@@ -1,9 +1,13 @@
 package view;
 
 
+import inventory.Model.Inventory;
 import inventory.Model.Parts;
+import inventory.Model.Product;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 
 /**
@@ -18,7 +22,7 @@ public class AddProductController {
     private TextField productSearchField;
 
     @FXML
-    private Label productID;
+    private TextField productId;
 
     @FXML
     private TextField productNameField;
@@ -84,6 +88,30 @@ public class AddProductController {
 
     @FXML
     private void initialize () {
+
+    }
+
+
+    private Stage productStage;
+    private Inventory inventory;
+    private Product product;
+    private boolean newPart;
+    private ObservableList<Parts> parts;
+
+    public void setScreenTitle(Stage stage, Inventory hasInventory, Product hasProduct) {
+        productStage = stage;
+        inventory = hasInventory;
+        product = hasProduct;
+
+        if (hasProduct == null) {
+            newPart = true;
+            productLabel.setText("Add Part");
+
+        } else {
+            newPart = false;
+            productLabel.setText("Modify Part");
+
+        }
 
     }
 

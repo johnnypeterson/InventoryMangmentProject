@@ -1,6 +1,7 @@
 package inventory.Model;
 
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
@@ -14,6 +15,11 @@ public class Inventory {
     private ObservableList<Parts> allParts;
     private static int partIdCount;
     private static int productIdCount;
+
+    public Inventory() {
+        allParts = FXCollections.observableArrayList();
+        allProducts = FXCollections.observableArrayList();
+    }
 
 
 
@@ -118,6 +124,14 @@ public class Inventory {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public ObservableList<Parts> getPartList() {
+        return allParts;
+    }
+
+    public ObservableList<Product> getProdcutList() {
+        return allProducts;
     }
 
 

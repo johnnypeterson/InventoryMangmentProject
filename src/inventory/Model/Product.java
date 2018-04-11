@@ -1,9 +1,7 @@
 package inventory.Model;
 
 
-        import javafx.beans.property.DoubleProperty;
-        import javafx.beans.property.IntegerProperty;
-        import javafx.beans.property.StringProperty;
+        import javafx.beans.property.*;
         import javafx.collections.FXCollections;
         import javafx.collections.ObservableList;
 
@@ -16,12 +14,14 @@ package inventory.Model;
 public class Product {
 
     private ObservableList<Parts> associatedParts = FXCollections.observableArrayList();
-    private IntegerProperty productID;
-    private StringProperty productName;
-    private DoubleProperty productPrice;
-    private IntegerProperty productInStock;
-    private IntegerProperty productMin;
-    private IntegerProperty productMax;
+    private IntegerProperty productID = new SimpleIntegerProperty();
+    private StringProperty productName = new SimpleStringProperty();
+    private DoubleProperty productPrice = new SimpleDoubleProperty();
+    private IntegerProperty productInStock = new SimpleIntegerProperty();
+    private IntegerProperty productMin = new SimpleIntegerProperty();
+    private IntegerProperty productMax = new SimpleIntegerProperty();
+
+    private static int incrementId = 1;
 
 
 
@@ -108,4 +108,24 @@ public class Product {
     public ObservableList<Parts> getParts() {
         return associatedParts;
     }
+
+    public void setProductID(){
+        this.productID.set(incrementId++);
+    }
+
+    public Product(String name, double price, int instock, int min, int max, Parts firstpart) throws IllegalArgumentException {
+        this(name, price, instock, min, max, FXCollections.observableArrayList(firstpart));
+    }
+
+
+    public Product(String name, double price, int instock, int min, int max, List<Parts> parts) throws IllegalArgumentException {
+        setProductID();
+        this.associatedParts.setAll(parts);
+        setProductName(name);
+        setProductPrice(price);
+        setProductInStock(instock);
+        setProductMax(max);
+        setProductMin(min);
+    }
+
 }

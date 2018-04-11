@@ -42,6 +42,9 @@ public class AddPartController {
     @FXML
     private Button cancelButton;
 
+    @FXML
+    private Label machineOrCompany;
+
     public AddPartController() {}
 
     @FXML
@@ -50,6 +53,22 @@ public class AddPartController {
         ToggleGroup radioButton = new ToggleGroup();
         inHouseButton.setToggleGroup(radioButton);
         outsourcedButton.setToggleGroup(radioButton);
+
+        radioButton.selectedToggleProperty().addListener((observableValue, oldToggle, newToggle) -> changeLable(newToggle));
+
+
+
+    }
+
+    private void changeLable(Toggle toggle) {
+        String labelText = "Machine ID";
+        if(toggle.equals(inHouseButton)) {
+            labelText = "Machine ID";
+
+        } else if (toggle.equals(outsourcedButton)) {
+            labelText = "Company Name";
+        }
+        machineOrCompany.setText(labelText);
 
 
 

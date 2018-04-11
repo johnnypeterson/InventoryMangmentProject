@@ -1,8 +1,6 @@
 package inventory.Model;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -12,36 +10,30 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public abstract class Parts {
 
-    private static AtomicInteger incrementId = new AtomicInteger(0);
-    private SimpleIntegerProperty partID;
-    private SimpleStringProperty partName;
-    private SimpleDoubleProperty partPrice;
-    private SimpleIntegerProperty partsInStock;
-    private SimpleIntegerProperty partMin;
-    private SimpleIntegerProperty partMax;
+    private static int incrementId = 1;
+    private IntegerProperty partID = new SimpleIntegerProperty();
+    private StringProperty partName = new SimpleStringProperty();
+    private DoubleProperty partPrice = new SimpleDoubleProperty();
+    private IntegerProperty partsInStock = new SimpleIntegerProperty();
+    private IntegerProperty partMin = new SimpleIntegerProperty();
+    private IntegerProperty partMax = new SimpleIntegerProperty();
 
-    public Parts(String name, double partPrice, int partInstock) {
-        this.partID = new SimpleIntegerProperty(incrementId.incrementAndGet());
-        this.partName = new SimpleStringProperty(name);
-        this.partPrice = new SimpleDoubleProperty(partPrice);
-        this.partsInStock = new SimpleIntegerProperty(partInstock);
-        this.partMin = new SimpleIntegerProperty(0);
-        this.partMax = new SimpleIntegerProperty(0);
+
+    protected Parts() {
     }
 
-    public static AtomicInteger getIncrementId() {
+    public static int getIncrementId() {
         return incrementId;
     }
 
-    public static void setIncrementId(AtomicInteger incrementId) {
+    public static void setIncrementId(int incrementId) {
         Parts.incrementId = incrementId;
     }
 
     public int getPartID() {
         return partID.get();
     }
-
-    public SimpleIntegerProperty partIDProperty() {
+    public IntegerProperty partIDProperty() {
         return partID;
     }
 
@@ -53,7 +45,7 @@ public abstract class Parts {
         return partName.get();
     }
 
-    public SimpleStringProperty partNameProperty() {
+    public StringProperty partNameProperty() {
         return partName;
     }
 
@@ -65,7 +57,7 @@ public abstract class Parts {
         return partPrice.get();
     }
 
-    public SimpleDoubleProperty partPriceProperty() {
+    public DoubleProperty partPriceProperty() {
         return partPrice;
     }
 
@@ -77,7 +69,7 @@ public abstract class Parts {
         return partsInStock.get();
     }
 
-    public SimpleIntegerProperty partsInStockProperty() {
+    public IntegerProperty partsInStockProperty() {
         return partsInStock;
     }
 
@@ -89,7 +81,7 @@ public abstract class Parts {
         return partMin.get();
     }
 
-    public SimpleIntegerProperty partMinProperty() {
+    public IntegerProperty partMinProperty() {
         return partMin;
     }
 
@@ -101,7 +93,7 @@ public abstract class Parts {
         return partMax.get();
     }
 
-    public SimpleIntegerProperty partMaxProperty() {
+    public IntegerProperty partMaxProperty() {
         return partMax;
     }
 
@@ -112,6 +104,10 @@ public abstract class Parts {
 
     public void copyPartId(Parts oldPart) {
         this.partID.set(oldPart.getPartID());
+    }
+
+    public void setPartID(){
+        this.partID.set(Parts.incrementId++);
     }
 
 
