@@ -3,6 +3,7 @@ package inventory.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 
 import java.util.ArrayList;
 
@@ -71,15 +72,9 @@ public class Inventory {
         }
         return result;
     }
-    public boolean removeProduct(Product removeProduct) throws Exception {
-        boolean result = false;
-        if (removeProduct == null) return false;
+    public boolean removeProduct(int remove) {
+        return allProducts.removeIf(part -> part.getProductID() == remove);
 
-        if(!removeProduct.getParts().isEmpty()) {
-            throw new Exception("This Product is still associated with one or more parts.");
-        }
-        result = this.allProducts.remove(removeProduct);
-        return result;
     }
 
 
@@ -126,6 +121,22 @@ public class Inventory {
         }
     }
 
+    public void updateProduct(Product oldProduct, Product newProduct) {
+        newProduct.copyId(oldProduct);
+        removeNotEmptyProduct(oldProduct);
+        addProduct(newProduct);
+    }
+
+    public boolean removeNotEmptyProduct(Product productToRemove) {
+        boolean result = false;
+
+        if (productToRemove ==  null) return result;
+
+        result = this.allProducts.remove(productToRemove);
+
+        return result;
+    }
+
     public ObservableList<Parts> getPartList() {
         return allParts;
     }
@@ -134,11 +145,59 @@ public class Inventory {
         return allProducts;
     }
 
+    public ObservableList<Product> searchforProduct(String string) {
+        ObservableList<Product> productObservableList = FXCollections.observableArrayList();
+
+        String productName = null;
+
+        for(Product product: allProducts) {
+            productName = product.getProductName();
+
+            for (Parts part : product.getParts()) {
+
+                if(part.getPartName().toLowerCase().contains(string.toLowerCase())) {
+                    productObservableList.add(product);
+                }
+
+            }
+            if(productName.toLowerCase().contains(string.toLowerCase())) {
+                productObservableList.add(product);
+            }
+
+        }
+        return productObservableList;
+
+    }
+
+
+    public ObservableList<Parts> searchforPart(String string) {
+
+
+        ObservableList<Parts> partsObservableList = FXCollections.observableArrayList();
+
+        String machineId = null;
+        String companyName = null;
+
+
+        String partName = null;
+
+        for (Parts part : allParts) {
+            partName = part.getPartName();
+            machineId = part instanceof InHouse ? String.valueOf(((InHouse) part).getMachineID()) : "";
+            companyName = part instanceof Outsourced ? ((Outsourced) part).getCompnayName() : "";
+
+            if (partName.toLowerCase().contains(string.toLowerCase()) ||
+                    machineId.toLowerCase().contains(string.toLowerCase()) ||
+                    companyName.toLowerCase().contains(string.toLowerCase())) {
+                partsObservableList.add(part);
+            }
 
 
 
+        }
+        return partsObservableList;
 
 
-
+    }
 
 }

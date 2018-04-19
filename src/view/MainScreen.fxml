@@ -61,21 +61,21 @@
                 <Font size="16.0" />
             </font>
         </Label>
-        <Button fx:id="searchPartButton" layoutX="349.0" layoutY="62.0" mnemonicParsing="false" text="Search" />
-        <Button fx:id="searchProductButton" layoutX="780.0" layoutY="62.0" mnemonicParsing="false" text="Search" />
-        <TextField fx:id="searchPartTextField" layoutX="167.0" layoutY="62.0" />
-        <TextField fx:id="searchProductTextField" layoutX="600.0" layoutY="62.0" />
+        <Button fx:id="searchPartButton" layoutX="349.0" layoutY="62.0" mnemonicParsing="false" onAction="#searchPart" text="Search" />
+        <Button fx:id="searchProductButton" layoutX="780.0" layoutY="62.0" mnemonicParsing="false" onAction="#searchProduct" text="Search" />
+        <TextField fx:id="searchPartTextFeild" layoutX="167.0" layoutY="62.0" promptText="Search Part" />
+        <TextField fx:id="searchProductTextFeild" layoutX="600.0" layoutY="62.0" promptText="Search Product" />
       <ButtonBar layoutX="8.0" layoutY="378.0" prefHeight="40.0" prefWidth="425.0">
         <buttons>
               <Button fx:id="partAddButton" mnemonicParsing="false" onAction="#addPart" prefHeight="27.0" prefWidth="59.0" text="Add" />
-              <Button fx:id="partModifyButton" mnemonicParsing="false" text="Modify" />
-              <Button fx:id="partDeleteButton" mnemonicParsing="false" text="Delete" />
+              <Button fx:id="partModifyButton" mnemonicParsing="false" onAction="#modifyPartButton" text="Modify" />
+              <Button fx:id="partDeleteButton" mnemonicParsing="false" onAction="#deletePart" text="Delete" />
         </buttons>
       </ButtonBar>
       <ButtonBar layoutX="539.0" layoutY="378.0" prefHeight="40.0" prefWidth="323.0">
          <buttons>
-              <Button fx:id="productModifyButton" mnemonicParsing="false" text="Modify" />
-              <Button fx:id="productDeleteButton" mnemonicParsing="false" text="Delete" />
+              <Button fx:id="productModifyButton" mnemonicParsing="false" onAction="#modifyProductButton" text="Modify" />
+              <Button fx:id="productDeleteButton" mnemonicParsing="false" onAction="#deleteProduct" text="Delete" />
               <Button fx:id="productAddButton" mnemonicParsing="false" onAction="#addProductButton" prefHeight="27.0" prefWidth="58.0" text="Add" />
          </buttons>
       </ButtonBar>

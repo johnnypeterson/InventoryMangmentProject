@@ -5,6 +5,7 @@ package inventory.Model;
         import javafx.collections.FXCollections;
         import javafx.collections.ObservableList;
 
+        import java.text.ParseException;
         import java.util.List;
         import java.util.Observable;
 
@@ -31,6 +32,33 @@ public class Product {
 
     public void setAssociatedParts(ObservableList<Parts> associatedParts) {
         this.associatedParts = associatedParts;
+    }
+
+    public void addPart(Parts part) {this.associatedParts.add(part);}
+
+    public boolean removePart(int id) {
+        return associatedParts.removeIf(part -> part.getPartID() == id);
+    }
+
+    public void updatePart(int id) throws Exception {
+        for (Parts part : associatedParts) {
+            if(part.getPartID() == id) {
+                return;
+            } else  {
+                throw new Exception("Part not found");
+            }
+        }
+    }
+
+    public Parts lookupPart(int id) throws Exception {
+        for (Parts part : associatedParts) {
+            if (part.getPartID() == id) {
+                return part;
+            } else {
+                throw new Exception("Part not found");
+            }
+        }
+        return null;
     }
 
     public int getProductID() {
@@ -127,5 +155,16 @@ public class Product {
         setProductMax(max);
         setProductMin(min);
     }
+
+
+    public void copyId(Product oldProduct) {
+        this.productID.set(oldProduct.getProductID());
+    }
+
+
+
+
+
+
 
 }

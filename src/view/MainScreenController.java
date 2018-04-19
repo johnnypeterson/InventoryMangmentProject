@@ -1,36 +1,21 @@
 package view;
 
 
-
 import inventory.Main;
 import inventory.Model.Inventory;
 import inventory.Model.Parts;
 import inventory.Model.Product;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.Optional;
 
 /**
  * Created by johnnypeterson on Mar, 2018
  */
 public class MainScreenController {
-
 
 
     @FXML
@@ -78,7 +63,8 @@ public class MainScreenController {
     @FXML
     Button productDeleteButton;
 
-    public MainScreenController() {}
+    public MainScreenController() {
+    }
 
     private Main app;
     private Inventory inventory;
@@ -98,6 +84,23 @@ public class MainScreenController {
         productInventoryColumn.setCellValueFactory(cell -> cell.getValue().productInStockProperty().asObject());
         productPriceColumn.setCellValueFactory(cell -> cell.getValue().productPriceProperty().asObject());
 
+        buttonState(partsTableView, true);
+        buttonState(productTableView, true);
+
+        partsTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> buttonState(partsTableView, newValue ==null));
+        productTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> buttonState(productTableView, newValue ==null));
+
+
+        searchPartTextFeild.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null || newValue.isEmpty()) {
+                partsTableView.setItems(inventory.getPartList());
+            }
+        });
+        searchProductTextFeild.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null || newValue.isEmpty()) {
+                productTableView.setItems(inventory.getProdcutList());
+            }
+        });
 
 
 
@@ -108,10 +111,11 @@ public class MainScreenController {
         app = mainApp;
         inventory = mainApp.getInventory();
 
-        partsTableView.setItems(inventory.getPartList());
+        partsTableView.setItems(inventory.getAllParts());
         productTableView.setItems(inventory.getProdcutList());
 
     }
+
 
     @FXML
     private void addPart() {
@@ -124,14 +128,22 @@ public class MainScreenController {
         app.showProductScreen(null);
     }
 
-
-
     @FXML
-    private void modifyPart() {
-        Parts existingPart = partsTableView.getSelectionModel().getSelectedItem();
-        app.showPartScreen(existingPart);
+    private void modifyProductButton() {
+        Product productExists = productTableView.getSelectionModel().getSelectedItem();
+        app.showProductScreen(productExists);
+
 
     }
+
+    @FXML
+    private void modifyPartButton() {
+        Parts existingPart = partsTableView.getSelectionModel().getSelectedItem();
+        app.showPartScreen(existingPart);
+    }
+
+
+
 
     private void buttonState(TableView<?> table, boolean state) {
         if (table.equals(partsTableView)) {
@@ -151,24 +163,102 @@ public class MainScreenController {
         alert.setContentText("Data will not be saved.");
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
+        if (result.get() == ButtonType.OK) {
             // ... user chose OK
             app.primaryStage.close();
         }
+
 
     }
 
 
 
+    @FXML
+    private void deletePart() {
+        int partIndex = partsTableView.getSelectionModel().getSelectedIndex();
+        Parts selectedPart = partsTableView.getSelectionModel().getSelectedItem();
+        if (partIndex >= 0) {
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Delete Part");
+            alert.setHeaderText("Do you want to delete this part?");
+            alert.setContentText("This Action can not be undone.");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                inventory.removePart(selectedPart);
+            }
+        } else {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(app.getPrimaryStage());
+            alert.setTitle("Nothing Selected");
+            alert.setHeaderText("Part not Selected.");
+            alert.setContentText("Please select a part.");
+
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void deleteProduct() {
+        int productIndex = productTableView.getSelectionModel().getSelectedIndex();
+        Product selectedProduct = productTableView.getSelectionModel().getSelectedItem();
+        boolean hasNoParts = selectedProduct.getParts().isEmpty();
+        if (productIndex >= 0) {
+
+            if (hasNoParts) {
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Delete Product");
+                alert.setHeaderText("Do you want to delete this product?");
+                alert.setContentText("This Action can not be undone.");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    inventory.getProdcutList().remove(selectedProduct);
+                }
+            } else {
+                Alert alert2 = new Alert(AlertType.WARNING);
+                alert2.initOwner(app.getPrimaryStage());
+                alert2.setTitle("Part Associated");
+                alert2.setHeaderText("This product has a part associated with it");
+                alert2.setContentText("delete associated parts before deleting product");
+
+                alert2.showAndWait();
+
+            }
+
+        } else {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.initOwner(app.getPrimaryStage());
+            alert.setTitle("Nothing Selected");
+            alert.setHeaderText("Product not Selected.");
+            alert.setContentText("Please select a product.");
+
+            alert.showAndWait();
+        }
 
 
+    }
 
+    @FXML
+    private void searchProduct(){
+        String searchTerm = searchProductTextFeild.getText();
+        if (searchTerm == null || searchTerm.isEmpty()) {
+            productTableView.setItems(inventory.getProdcutList());
+        }
+        ObservableList<Product> productObservableList = inventory.searchforProduct(searchTerm);
+        productTableView.setItems(productObservableList);
+    }
 
+    @FXML
+    private void searchPart() {
+        String searchTerm = searchPartTextFeild.getText();
+        if(searchTerm == null || searchTerm.isEmpty()) {
+            partsTableView.setItems((inventory.getPartList()));
+        }
+        ObservableList<Parts> partsFound = inventory.searchforPart(searchTerm);
+        partsTableView.setItems(partsFound);
 
-
-
-
-
+    }
 
 
 }

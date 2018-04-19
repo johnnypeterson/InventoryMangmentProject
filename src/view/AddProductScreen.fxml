@@ -29,16 +29,16 @@
                   <TextField fx:id="productNameField" layoutX="94.0" layoutY="145.0" prefHeight="22.0" prefWidth="117.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="150.0" />
                   <TextField fx:id="productInvField" layoutX="100.0" layoutY="195.0" prefHeight="22.0" prefWidth="117.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="200.0" />
                   <TextField fx:id="productPriceField" layoutX="100.0" layoutY="239.0" prefHeight="27.0" prefWidth="117.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="250.0" />
-                  <TextField layoutX="152.0" layoutY="295.0" prefHeight="27.0" prefWidth="42.0" AnchorPane.topAnchor="295.0" />
-                  <TextField layoutX="61.0" layoutY="295.0" prefHeight="27.0" prefWidth="42.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="295.0" />
-                  <TextField fx:id="productId" layoutX="105.0" layoutY="95.0" prefHeight="27.0" prefWidth="108.0" />
+                  <TextField fx:id="productMaxField" layoutX="152.0" layoutY="295.0" prefHeight="27.0" prefWidth="42.0" AnchorPane.topAnchor="295.0" />
+                  <TextField fx:id="productMinField" layoutX="61.0" layoutY="295.0" prefHeight="27.0" prefWidth="42.0" AnchorPane.leftAnchor="61.0" AnchorPane.topAnchor="295.0" />
+                  <Label fx:id="productId" layoutX="105.0" layoutY="95.0" prefHeight="27.0" prefWidth="108.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="389.0" prefWidth="355.0">
                <children>
                   <TableView fx:id="partSearchTable" layoutX="77.0" layoutY="65.0" prefHeight="147.0" prefWidth="411.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                     <columns>
-                      <TableColumn fx:id="partIdSearch" prefWidth="71.0" text="Part Id" />
+                      <TableColumn fx:id="partAdd" prefWidth="71.0" text="Part Id" />
                       <TableColumn fx:id="partNameSearch" minWidth="7.0" prefWidth="180.0" text="Part Name" />
                         <TableColumn fx:id="invSearch" minWidth="7.0" prefWidth="148.0" text="Inventory" />
                         <TableColumn fx:id="priceSearch" minWidth="7.0" prefWidth="133.0" text="Price per Unit" />
@@ -46,17 +46,17 @@
                   </TableView>
                   <TableView fx:id="partTable" layoutX="20.0" layoutY="269.0" prefHeight="147.0" prefWidth="411.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                      <columns>
-                        <TableColumn fx:id="partAdd" prefWidth="74.0" text="Part Id" />
+                        <TableColumn fx:id="partDelete" prefWidth="74.0" text="Part Id" />
                         <TableColumn fx:id="partNameAdd" prefWidth="166.0" text="Part Name" />
                         <TableColumn fx:id="invAdd" prefWidth="153.0" text="Inventory" />
                         <TableColumn fx:id="priceAdd" prefWidth="138.0" text="Price per Unit" />
                      </columns>
                   </TableView>
-                  <Button fx:id="productSearchButton" layoutX="113.0" layoutY="22.0" mnemonicParsing="false" text="Search" />
-                  <Button fx:id="productAddButton" layoutX="463.0" layoutY="225.0" mnemonicParsing="false" text="Add" />
-                  <Button fx:id="productDeleteButton" layoutX="471.0" layoutY="424.0" mnemonicParsing="false" text="Delete" AnchorPane.bottomAnchor="53.0" AnchorPane.topAnchor="424.0" />
-                  <Button fx:id="productSaveButton" layoutX="400.0" layoutY="463.0" mnemonicParsing="false" text="Save" />
-                  <Button fx:id="productCancelButton" layoutX="471.0" layoutY="463.0" mnemonicParsing="false" text="Cancel" />
+                  <Button fx:id="productSearchButton" layoutX="113.0" layoutY="22.0" mnemonicParsing="false" onAction="#searchParts" text="Search" />
+                  <Button fx:id="productAddButton" layoutX="463.0" layoutY="225.0" mnemonicParsing="false" onAction="#addPart" text="Add" />
+                  <Button fx:id="productDeleteButton" layoutX="471.0" layoutY="424.0" mnemonicParsing="false" onAction="#deletePart" text="Delete" AnchorPane.bottomAnchor="53.0" AnchorPane.topAnchor="424.0" />
+                  <Button fx:id="productSaveButton" layoutX="400.0" layoutY="463.0" mnemonicParsing="false" onAction="#saveProduct" text="Save" />
+                  <Button fx:id="productCancelButton" layoutX="471.0" layoutY="463.0" mnemonicParsing="false" onAction="#handelCancel" text="Cancel" />
                   <TextField fx:id="productSearchField" layoutX="203.0" layoutY="22.0" />
                </children>
             </AnchorPane>
