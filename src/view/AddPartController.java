@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.text.ParseException;
 import java.util.Optional;
 
 
@@ -121,7 +120,7 @@ public class AddPartController {
             machineOrCompany.setText("Company");
         }
         partIdField.setText(Integer.toString(part.getPartID()));
-        partNameField.setText(part.getPartName());
+        partNameField.setText(part.getName());
         invField.setText(Integer.toString(part.getPartsInStock()));
         maxField.setText(Integer.toString(part.getPartMax()));
         minField.setText(Integer.toString(part.getPartMin()));
@@ -154,7 +153,7 @@ public class AddPartController {
         String min = minField.getText();
         String companyOrMachine = companyNameField.getText();
 
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.initOwner(partStage);
         alert.setTitle("Unable to Save Part");
 
@@ -162,6 +161,8 @@ public class AddPartController {
             if (name.isEmpty() || inStock.isEmpty() || price.isEmpty() || max.isEmpty() ||
                     min.isEmpty() || companyOrMachine.isEmpty()){
                 throw new IllegalArgumentException("Must complete all fields.");
+            } else if (Integer.parseInt(max) <  Integer.parseInt(min)) {
+                throw new IllegalArgumentException("The Max field can't be less then your min field.");
             }
             String companyName = null;
             int machineId = -1;
@@ -181,7 +182,7 @@ public class AddPartController {
                 editPart = new Outsourced(name, priceDouble, inStockInt, minInt, maxInt, companyName);
             }
             if(newPart) {
-                Parts searchPart = inventory.lookupPart(editPart.getPartName());
+                Parts searchPart = inventory.lookupPart(editPart.getName());
 
                 if (searchPart == null || partFound() == ButtonType.YES) {
                     inventory.addPart(editPart);

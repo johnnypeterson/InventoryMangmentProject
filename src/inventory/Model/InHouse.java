@@ -12,19 +12,18 @@ public class InHouse extends Parts {
 
     public InHouse() {
         this("New Part", 0, 0);
-        setPartName(getPartName() + " " + getPartID());
+        setName(getName() + " " + getPartID());
     }
 
-    public InHouse(String name, double price, int machineID) throws IllegalArgumentException{
+    public InHouse(String name, double price, int machineID) throws IllegalArgumentException {
         this(name, price, 0, 0, 0, machineID);
     }
 
 
-
-    public InHouse(String name, double price, int instock, int min, int max, int machineID) throws IllegalArgumentException{
+    public InHouse(String name, double price, int instock, int min, int max, int machineID) throws IllegalArgumentException {
 
         setPartID();
-        setPartName(name);
+        setName(name);
         setPartPrice(price);
         setPartMax(max);
         setPartMin(min);
@@ -32,7 +31,6 @@ public class InHouse extends Parts {
 
         setMachineID(machineID);
     }
-
 
 
     public int getMachineID() {

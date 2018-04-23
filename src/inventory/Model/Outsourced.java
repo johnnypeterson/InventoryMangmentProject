@@ -6,7 +6,7 @@ import javafx.beans.property.StringProperty;
 /**
  * Created by johnnypeterson on Mar, 2018
  */
-public class Outsourced extends Parts{
+public class Outsourced extends Parts {
 
     private StringProperty compnayName = new SimpleStringProperty();
 
@@ -20,9 +20,10 @@ public class Outsourced extends Parts{
         }
         this.compnayName.set(compnayName);
     }
+
     public Outsourced(String name, double price, int instock, int min, int max, String companyName) throws IllegalArgumentException {
         setPartID();
-        setPartName(name);
+        setName(name);
         setPartPrice(price);
         setPartMax(max);
         setPartMin(min);

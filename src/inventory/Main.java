@@ -4,10 +4,8 @@ import inventory.Model.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -21,20 +19,16 @@ public class Main extends Application {
 
     private Inventory inventory;
     public Stage primaryStage;
-    private Main app;
     private AnchorPane rootLayout;
 
-    private ObservableList<Parts> partsData = FXCollections.observableArrayList();
-    private ObservableList<Product> productData = FXCollections.observableArrayList();
 
-
-    public Main () {
+    public Main() {
         inventory = new Inventory();
 
         try {
-            inventory.addPart(new InHouse("test", 1.34, 23,213, 241, 3));
-            inventory.addPart(new Outsourced("outsourcedpart", 12,234,32,54,"test"));
-            inventory.addPart(new Outsourced("outsourcedpart", 12,234,32,54,null));
+            inventory.addPart(new InHouse("test", 1.34, 23, 213, 241, 3));
+            inventory.addPart(new Outsourced("outsourcedpart", 12, 234, 32, 54, "test"));
+            inventory.addPart(new Outsourced("outsourcedpart", 12, 234, 32, 54, null));
 
             Product productTest = new Product("Test", 50, 89, 56, 98, inventory.lookupPart("outsourcedpart"));
             productTest.addPart(inventory.lookupPart("test"));
@@ -51,12 +45,12 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Johnny Peterson C482");
 
-        ininRootLayout();
-
+        initRootLayout();
 
 
     }
-    public  void ininRootLayout() {
+
+    public void initRootLayout() {
         try {
 
             FXMLLoader loader = new FXMLLoader();
@@ -75,18 +69,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
-    public  ObservableList<Parts> getPartsData() {
-        return partsData;
-    }
-    public void addPartsData(Parts part) {partsData.add(part);}
-
-    public ObservableList<Product> getProductData() {
-        return productData;
-    }
-    public void addProdData(Product prod){productData.add(prod);}
-
-
 
 
     public Inventory getInventory() {
@@ -159,10 +141,6 @@ public class Main extends Application {
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-
-
-
-
 
 
     public static void main(String[] args) {

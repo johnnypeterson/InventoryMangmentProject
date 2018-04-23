@@ -75,10 +75,10 @@ public class MainScreenController {
 
         //Part Table
         partIdColum.setCellValueFactory(cell -> cell.getValue().partIDProperty().asObject());
-        partNameColumn.setCellValueFactory(cell -> cell.getValue().partNameProperty());
+        partNameColumn.setCellValueFactory(cell -> cell.getValue().nameProperty());
         partInventoryColumn.setCellValueFactory(cell -> cell.getValue().partsInStockProperty().asObject());
         partPriceColumn.setCellValueFactory(cell -> cell.getValue().partPriceProperty().asObject());
-
+        //Product Table
         productIdcolumn.setCellValueFactory(cell -> cell.getValue().productIDProperty().asObject());
         productNameColumn.setCellValueFactory(cell -> cell.getValue().productNameProperty());
         productInventoryColumn.setCellValueFactory(cell -> cell.getValue().productInStockProperty().asObject());
@@ -87,10 +87,10 @@ public class MainScreenController {
         buttonState(partsTableView, true);
         buttonState(productTableView, true);
 
-        partsTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> buttonState(partsTableView, newValue ==null));
-        productTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> buttonState(productTableView, newValue ==null));
+        partsTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> buttonState(partsTableView, newValue == null));
+        productTableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> buttonState(productTableView, newValue == null));
 
-
+        //Listeners for search text field
         searchPartTextFeild.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == null || newValue.isEmpty()) {
                 partsTableView.setItems(inventory.getPartList());
@@ -101,7 +101,6 @@ public class MainScreenController {
                 productTableView.setItems(inventory.getProdcutList());
             }
         });
-
 
 
     }
@@ -143,8 +142,6 @@ public class MainScreenController {
     }
 
 
-
-
     private void buttonState(TableView<?> table, boolean state) {
         if (table.equals(partsTableView)) {
             partModifyButton.setDisable(state);
@@ -172,7 +169,6 @@ public class MainScreenController {
     }
 
 
-
     @FXML
     private void deletePart() {
         int partIndex = partsTableView.getSelectionModel().getSelectedIndex();
@@ -185,16 +181,8 @@ public class MainScreenController {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                inventory.removePart(selectedPart);
+                inventory.deletePart(selectedPart);
             }
-        } else {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(app.getPrimaryStage());
-            alert.setTitle("Nothing Selected");
-            alert.setHeaderText("Part not Selected.");
-            alert.setContentText("Please select a part.");
-
-            alert.showAndWait();
         }
     }
 
@@ -226,21 +214,13 @@ public class MainScreenController {
 
             }
 
-        } else {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.initOwner(app.getPrimaryStage());
-            alert.setTitle("Nothing Selected");
-            alert.setHeaderText("Product not Selected.");
-            alert.setContentText("Please select a product.");
-
-            alert.showAndWait();
         }
 
 
     }
 
     @FXML
-    private void searchProduct(){
+    private void searchProduct() {
         String searchTerm = searchProductTextFeild.getText();
         if (searchTerm == null || searchTerm.isEmpty()) {
             productTableView.setItems(inventory.getProdcutList());
@@ -252,7 +232,7 @@ public class MainScreenController {
     @FXML
     private void searchPart() {
         String searchTerm = searchPartTextFeild.getText();
-        if(searchTerm == null || searchTerm.isEmpty()) {
+        if (searchTerm == null || searchTerm.isEmpty()) {
             partsTableView.setItems((inventory.getPartList()));
         }
         ObservableList<Parts> partsFound = inventory.searchforPart(searchTerm);

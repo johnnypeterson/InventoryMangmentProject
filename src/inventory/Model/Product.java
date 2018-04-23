@@ -1,13 +1,11 @@
 package inventory.Model;
 
 
-        import javafx.beans.property.*;
-        import javafx.collections.FXCollections;
-        import javafx.collections.ObservableList;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-        import java.text.ParseException;
-        import java.util.List;
-        import java.util.Observable;
+import java.util.List;
 
 /**
  * Created by johnnypeterson on Mar, 2018
@@ -25,7 +23,6 @@ public class Product {
     private static int incrementId = 1;
 
 
-
     public ObservableList<Parts> getAssociatedParts() {
         return associatedParts;
     }
@@ -34,7 +31,9 @@ public class Product {
         this.associatedParts = associatedParts;
     }
 
-    public void addPart(Parts part) {this.associatedParts.add(part);}
+    public void addPart(Parts part) {
+        this.associatedParts.add(part);
+    }
 
     public boolean removePart(int id) {
         return associatedParts.removeIf(part -> part.getPartID() == id);
@@ -42,9 +41,9 @@ public class Product {
 
     public void updatePart(int id) throws Exception {
         for (Parts part : associatedParts) {
-            if(part.getPartID() == id) {
+            if (part.getPartID() == id) {
                 return;
-            } else  {
+            } else {
                 throw new Exception("Part not found");
             }
         }
@@ -137,7 +136,7 @@ public class Product {
         return associatedParts;
     }
 
-    public void setProductID(){
+    public void setProductID() {
         this.productID.set(incrementId++);
     }
 
@@ -160,11 +159,6 @@ public class Product {
     public void copyId(Product oldProduct) {
         this.productID.set(oldProduct.getProductID());
     }
-
-
-
-
-
 
 
 }

@@ -2,9 +2,6 @@ package inventory.Model;
 
 import javafx.beans.property.*;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
  * Created by johnnypeterson on Mar, 2018
  */
@@ -12,7 +9,7 @@ public abstract class Parts {
 
     private static int incrementId = 1;
     private IntegerProperty partID = new SimpleIntegerProperty();
-    private StringProperty partName = new SimpleStringProperty();
+    private StringProperty name = new SimpleStringProperty();
     private DoubleProperty partPrice = new SimpleDoubleProperty();
     private IntegerProperty partsInStock = new SimpleIntegerProperty();
     private IntegerProperty partMin = new SimpleIntegerProperty();
@@ -33,6 +30,7 @@ public abstract class Parts {
     public int getPartID() {
         return partID.get();
     }
+
     public IntegerProperty partIDProperty() {
         return partID;
     }
@@ -41,16 +39,16 @@ public abstract class Parts {
         this.partID.set(partID);
     }
 
-    public String getPartName() {
-        return partName.get();
+    public String getName() {
+        return name.get();
     }
 
-    public StringProperty partNameProperty() {
-        return partName;
+    public StringProperty nameProperty() {
+        return name;
     }
 
-    public void setPartName(String partName) {
-        this.partName.set(partName);
+    public void setName(String name) {
+        this.name.set(name);
     }
 
     public double getPartPrice() {
@@ -106,10 +104,9 @@ public abstract class Parts {
         this.partID.set(oldPart.getPartID());
     }
 
-    public void setPartID(){
+    public void setPartID() {
         this.partID.set(Parts.incrementId++);
     }
-
 
 
 }

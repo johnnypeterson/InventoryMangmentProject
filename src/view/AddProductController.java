@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.Optional;
 
 
@@ -93,9 +92,9 @@ public class AddProductController {
     @FXML
     private void initialize() {
         partDelete.setCellValueFactory(cellData -> cellData.getValue().partIDProperty().asObject());
-        partNameSearch.setCellValueFactory(cellData -> cellData.getValue().partNameProperty());
+        partNameSearch.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         priceSearch.setCellValueFactory(cellData -> cellData.getValue().partPriceProperty().asObject());
-        partNameAdd.setCellValueFactory(cellData -> cellData.getValue().partNameProperty());
+        partNameAdd.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         invAdd.setCellValueFactory(cellData -> cellData.getValue().partsInStockProperty().asObject());
         invSearch.setCellValueFactory(cellData -> cellData.getValue().partsInStockProperty().asObject());
         priceAdd.setCellValueFactory(cellData -> cellData.getValue().partPriceProperty().asObject());
@@ -103,14 +102,10 @@ public class AddProductController {
         partAdd.setCellValueFactory(cellData -> cellData.getValue().partIDProperty().asObject());
 
         productSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue == null || newValue.isEmpty()) {
+            if (newValue == null || newValue.isEmpty()) {
                 partSearchTable.setItems(inventory.getPartList());
             }
         });
-
-
-
-
 
 
     }
@@ -158,9 +153,21 @@ public class AddProductController {
 
     @FXML
     private void deletePart() {
+        int partIndex = partTable.getSelectionModel().getSelectedIndex();
         Parts part = partTable.getSelectionModel().getSelectedItem();
 
-        partTable.getItems().remove(part);
+
+        if (partIndex >= 0) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete Part");
+            alert.setHeaderText("Do you want to remove this part from this product?");
+            alert.setContentText("This will not delete the part from the parts table");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                partTable.getItems().remove(part);
+            }
+        }
 
     }
 
@@ -169,17 +176,16 @@ public class AddProductController {
         Parts addedPart = partSearchTable.getSelectionModel().getSelectedItem();
 
 
-            String priceString = priceSearch.getText();
-            double price = priceSearch.getCellData(0);
-            partTable.getItems().add(addedPart);
-            double partCost = addCostOfParts();
-            if(partCost > price) {
-                price += addedPart.getPartPrice();
-                productPriceField.setText(priceString);
-            }
-
+        String priceString = priceSearch.getText();
+        double price = priceSearch.getCellData(0);
+        partTable.getItems().add(addedPart);
+        double partCost = addCostOfParts();
+        if (partCost > price) {
+            price += addedPart.getPartPrice();
+            productPriceField.setText(priceString);
         }
 
+    }
 
 
     @FXML
@@ -193,7 +199,7 @@ public class AddProductController {
         String min = this.productMinField.getText();
         parts = partTable.getItems();
 
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.initOwner(productStage);
         alert.setTitle("Unable to Save Product");
 
@@ -205,6 +211,9 @@ public class AddProductController {
             }
             if (parts.isEmpty()) {
                 throw new IllegalArgumentException("All Products must be associated with one part.");
+            }
+            if (Integer.parseInt(max) < Integer.parseInt(min)) {
+                throw new IllegalArgumentException("The Max field can't be less then your min field.");
             }
             double productPrice = Double.parseDouble(price);
             int instock = Integer.parseInt(invtory);
@@ -272,15 +281,13 @@ public class AddProductController {
     private void searchParts() {
 
         String searchTerm = productSearchField.getText();
-        if(searchTerm == null || searchTerm.isEmpty()) {
+        if (searchTerm == null || searchTerm.isEmpty()) {
             partSearchTable.setItems((inventory.getPartList()));
         }
         ObservableList<Parts> partsFound = inventory.searchforPart(searchTerm);
         partSearchTable.setItems(partsFound);
 
     }
-
-
 
 
 }
