@@ -214,6 +214,8 @@ public class AddProductController {
             }
             if (Integer.parseInt(max) < Integer.parseInt(min)) {
                 throw new IllegalArgumentException("The Max field can't be less then your min field.");
+            } else if (Integer.parseInt(invtory) > Integer.parseInt(max) || Integer.parseInt(invtory) < Integer.parseInt(min)) {
+                throw new IllegalArgumentException("The Inv field can't be greater then your max field or less then your min field.");
             }
             double productPrice = Double.parseDouble(price);
             int instock = Integer.parseInt(invtory);

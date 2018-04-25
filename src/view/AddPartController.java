@@ -161,8 +161,10 @@ public class AddPartController {
             if (name.isEmpty() || inStock.isEmpty() || price.isEmpty() || max.isEmpty() ||
                     min.isEmpty() || companyOrMachine.isEmpty()){
                 throw new IllegalArgumentException("Must complete all fields.");
-            } else if (Integer.parseInt(max) <  Integer.parseInt(min)) {
+            }  if (Integer.parseInt(max) <  Integer.parseInt(min)) {
                 throw new IllegalArgumentException("The Max field can't be less then your min field.");
+            } else if (Integer.parseInt(inStock) > Integer.parseInt(max) || Integer.parseInt(inStock) < Integer.parseInt(min)) {
+                throw new IllegalArgumentException("The Inv field can't be greater then your max field or less then your min field.");
             }
             String companyName = null;
             int machineId = -1;
